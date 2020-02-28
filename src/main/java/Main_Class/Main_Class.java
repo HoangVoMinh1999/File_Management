@@ -5,13 +5,49 @@
  */
 package Main_Class;
 import FileManagement.FileManagement;
+//---Import class java
+import java.util.Scanner;
 /**
  *
  * @author vomin
  */
 public class Main_Class {
+    public static Scanner scanner = new Scanner(System.in);
+    
     public static void main(String[] agrs){
+        boolean isExisted = false;
         FileManagement file = new FileManagement();
-        file.createNewFolder();
+        String inputPath = inputPath();
+        while(!isExisted){
+            int choice = Choices();
+            switch(choice){
+                case 1:
+                    file.createNewFolder(inputPath);
+                    break;
+                case 2:
+                    file.deleteFile(inputPath);
+                    break;
+                case 0:
+                    isExisted=true;
+                    break;
+                default:
+                    System.out.print("Khong co lenh thich hop");
+            }
+        }
+        
+        
+    }
+    //---Private methods
+    private static String inputPath(){
+        System.out.print("Nhap duong dan thu muc: ");
+        return scanner.nextLine();
+    }
+    private static int Choices(){
+        System.out.println("//-------------//");
+        System.out.println("1/-Tao file moi");
+        System.out.println("2/-Xoa file");
+        System.out.println("0/-Thoat chuong trinh");
+        System.out.println("Nhap lua chon muon thuc hien: ");
+        return scanner.nextInt();
     }
 }
