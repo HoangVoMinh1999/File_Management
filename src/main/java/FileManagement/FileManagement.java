@@ -32,7 +32,8 @@ public class FileManagement {
         FileManagement file = new FileManagement();
         file.pathFile=file.inputPath();
         System.out.println(file.pathFile);
-        File apath = new File(pathFile);
+        File apath = new File(file.pathFile);
+        System.out.println(apath);
         if (!apath.exists()){
             apath.mkdirs();
             System.out.println("Create new folder successfully !!!");
