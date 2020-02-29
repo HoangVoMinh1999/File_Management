@@ -18,14 +18,21 @@ public class Main_Class {
         boolean isExisted = false;
         FileManagement file = new FileManagement();
         String inputPath = inputPath();
+        file.setPath(inputPath);
         while(!isExisted){
             int choice = Choices();
             switch(choice){
                 case 1:
-                    file.createNewFolder(inputPath);
-                    break;
+                    file.getPath();
                 case 2:
-                    file.deleteFile(inputPath);
+                    file.createNewFolder(file.getPath());
+                    break;
+                case 3:
+                    file.deleteFile(file.getPath());
+                    break;
+                case 4:
+                    String newPath=file.renameFile(file.getPath());
+                    file.setPath(newPath);
                     break;
                 case 0:
                     isExisted=true;
@@ -44,10 +51,12 @@ public class Main_Class {
     }
     private static int Choices(){
         System.out.println("//-------------//");
-        System.out.println("1/-Tao file moi");
-        System.out.println("2/-Xoa file");
+        System.out.println("1/-Xem duong dan");
+        System.out.println("2/-Tao file moi");
+        System.out.println("3/-Xoa file");
+        System.out.println("4/-Doi ten thu muc");
         System.out.println("0/-Thoat chuong trinh");
-        System.out.println("Nhap lua chon muon thuc hien: ");
+        System.out.print("Nhap lua chon muon thuc hien: ");
         return scanner.nextInt();
     }
 }

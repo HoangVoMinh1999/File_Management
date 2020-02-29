@@ -6,13 +6,17 @@
 package FileManagement;
 
 import java.io.File;
+import java.util.Scanner;
+//import java.util.StringJoiner;
 
 /**
  *
  * @author vomin
  */
 public class FileManagement {
+
     private String pathFile;
+    public Scanner scanner = new Scanner(System.in);
 
     //---Constructor & Getter Setter
     public FileManagement() {
@@ -48,13 +52,34 @@ public class FileManagement {
         FileManagement file = new FileManagement();
         file.pathFile = inputPath;
         File apath = new File(file.pathFile);
-        if (apath.exists()){
+        if (apath.exists()) {
             apath.delete();
             System.out.println("Delete file successfully !!!");
-        }
-        else{
+        } else {
             System.out.println("Folder not exists !!!");
         }
     }
 
+    public String renameFile(String inputPath) {
+        File srcFile = new File(inputPath);
+        FileManagement file=new FileManagement();
+        file.pathFile=inputPath;
+        if (srcFile.exists()) {
+            String[] arrayOfString = inputPath.split("/", 0);
+            System.out.print("New file's name: ");
+            String input = scanner.nextLine();
+            arrayOfString[arrayOfString.length - 1] = input;
+            String destPath = String.join("/", arrayOfString);
+            System.out.println(destPath);
+            File destFile = new File (destPath);
+            srcFile.renameTo(destFile);
+            file.pathFile=destPath;
+            System.out.println(file.pathFile);
+            System.out.println("Rename successfully !!!");
+        }
+        else{
+            System.out.println("File not exist !!!");
+        }
+        return file.pathFile;
+    }
 }
