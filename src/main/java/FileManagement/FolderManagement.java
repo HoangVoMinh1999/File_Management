@@ -13,16 +13,16 @@ import java.util.Scanner;
  *
  * @author vomin
  */
-public class FileManagement {
+public class FolderManagement {
 
     private String pathFile;
     public Scanner scanner = new Scanner(System.in);
 
     //---Constructor & Getter Setter
-    public FileManagement() {
+    public FolderManagement() {
     }
 
-    public FileManagement(String pathFile) {
+    public FolderManagement(String pathFile) {
         this.pathFile = pathFile;
     }
 
@@ -35,21 +35,34 @@ public class FileManagement {
     }
 
     //---Create New Folder
-    public void createNewFolder(String inputPath) {
-        FileManagement file = new FileManagement();
+    public String createNewFolder(String inputPath) {
+        FolderManagement file = new FolderManagement();
+        //---Nhap ten folder can tao moi
+        System.out.print("New file's name: ");
+        String input = scanner.nextLine();
+        String check=inputPath.substring(inputPath.length()-1, inputPath.length());
+        System.out.println(check);
+        if (check == "/"){
+            inputPath = inputPath+input;
+        }
+        else{
+            inputPath = inputPath+"/"+input;
+        }
+        System.out.println(inputPath);
+        //---Tao folder moi
         file.pathFile = inputPath;
         File apath = new File(file.pathFile);
-        System.out.println(apath);
         if (!apath.exists()) {
             apath.mkdirs();
             System.out.println("Create new folder successfully !!!");
         } else {
             System.out.println("Folder exists !!!");
         }
+        return inputPath;
     }
 
-    public void deleteFile(String inputPath) {
-        FileManagement file = new FileManagement();
+    public void deleteFolder(String inputPath) {
+        FolderManagement file = new FolderManagement();
         file.pathFile = inputPath;
         File apath = new File(file.pathFile);
         if (apath.exists()) {
@@ -60,24 +73,26 @@ public class FileManagement {
         }
     }
 
-    public String renameFile(String inputPath) {
+    public String renameFolder(String inputPath) {
         File srcFile = new File(inputPath);
-        FileManagement file=new FileManagement();
-        file.pathFile=inputPath;
+        FolderManagement file = new FolderManagement();
+        file.pathFile = inputPath;
         if (srcFile.exists()) {
             String[] arrayOfString = inputPath.split("/", 0);
+            for (String i:arrayOfString){
+                System.out.println(i);
+            }
             System.out.print("New file's name: ");
             String input = scanner.nextLine();
             arrayOfString[arrayOfString.length - 1] = input;
             String destPath = String.join("/", arrayOfString);
             System.out.println(destPath);
-            File destFile = new File (destPath);
+            File destFile = new File(destPath);
             srcFile.renameTo(destFile);
-            file.pathFile=destPath;
+            file.pathFile = destPath;
             System.out.println(file.pathFile);
             System.out.println("Rename successfully !!!");
-        }
-        else{
+        } else {
             System.out.println("File not exist !!!");
         }
         return file.pathFile;
