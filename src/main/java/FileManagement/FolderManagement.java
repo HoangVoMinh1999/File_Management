@@ -6,6 +6,8 @@
 package FileManagement;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.io.IOException;
 import java.util.Scanner;
 //import java.util.StringJoiner;
 
@@ -40,13 +42,12 @@ public class FolderManagement {
         //---Nhap ten folder can tao moi
         System.out.print("New file's name: ");
         String input = scanner.nextLine();
-        String check=inputPath.substring(inputPath.length()-1, inputPath.length());
+        String check = inputPath.substring(inputPath.length() - 1, inputPath.length());
         System.out.println(check);
-        if (check == "/"){
-            inputPath = inputPath+input;
-        }
-        else{
-            inputPath = inputPath+"/"+input;
+        if (check == "/") {
+            inputPath = inputPath + input;
+        } else {
+            inputPath = inputPath + "/" + input;
         }
         System.out.println(inputPath);
         //---Tao folder moi
@@ -79,7 +80,7 @@ public class FolderManagement {
         file.pathFile = inputPath;
         if (srcFile.exists()) {
             String[] arrayOfString = inputPath.split("/", 0);
-            for (String i:arrayOfString){
+            for (String i : arrayOfString) {
                 System.out.println(i);
             }
             System.out.print("New file's name: ");
@@ -96,5 +97,20 @@ public class FolderManagement {
             System.out.println("File not exist !!!");
         }
         return file.pathFile;
+    }
+
+    public void copyFolder(String inputPath) {
+        File srcFile = new File(inputPath);
+        FolderManagement file = new FolderManagement();
+        file.pathFile = inputPath;
+        System.out.print("Please input path for copying: ");
+        String destPath = scanner.nextLine();
+        File destFile = new File(destPath);
+        try {
+            Files.copy(srcFile.toPath(), destFile.toPath());
+            System.out.println("Copy Folder Successfully !!!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

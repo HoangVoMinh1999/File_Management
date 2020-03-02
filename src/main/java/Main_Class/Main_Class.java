@@ -20,6 +20,7 @@ public class Main_Class {
     public static void main(String[] agrs) {
         boolean isExisted = false;
         while (!isExisted) {
+            System.out.println("//---FILE_MANAGER---//");
             String input = inputPath();
             int choice = Choices();
             switch (choice) {
@@ -49,7 +50,9 @@ public class Main_Class {
         System.out.println("2/-File");
         System.out.println("0/-Thoat chuong trinh");
         System.out.print("Nhap lua chon muon thuc hien: ");
-        return scanner.nextInt();
+        String choice = scanner.nextLine();
+        System.out.println(choice);
+        return Integer.parseInt(choice);
     }
 
     private static int ChoicesOfFolder() {
@@ -60,7 +63,8 @@ public class Main_Class {
         System.out.println("4/-Copy folder");
         System.out.println("0/-Quay lai");
         System.out.print("Nhap lua chon muon thuc hien: ");
-        return scanner.nextInt();
+        String choice = scanner.nextLine();
+        return Integer.parseInt(choice);
     }
 
     private static int ChoicesOfFile() {
@@ -69,7 +73,8 @@ public class Main_Class {
         System.out.println("2/-Xoa file");
         System.out.println("3/-Doi ten file");
         System.out.print("Nhap lua chon muon thuc hien: ");
-        return scanner.nextInt();
+        String choice = scanner.nextLine();
+        return Integer.parseInt(choice);
     }
 
     private static void ProcessOfFolder(String inputPath) {
@@ -92,6 +97,7 @@ public class Main_Class {
                     folder.setPath(new_path);
                     break;
                 case 4:
+                    folder.copyFolder(folder.getPath());
                     break;
                 case 0:
                     isExisted = true;
